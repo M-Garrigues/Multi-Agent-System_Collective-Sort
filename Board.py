@@ -5,24 +5,25 @@ from numpy import random as rand
 
 class Board:
 
-    def __init__(self, n, m, agents, objects):
+    def __init__(self, n, m):
         self._squares = [[Square() for _ in range(m)] for _ in range(n)]  # initialises a m*n board of squares
-        self._agents = agents
-        self._objects = objects
-
-        self.init_squares()
-        self.place_occupants(objects, agents)
+        self._agents = None
+        self._objects = None
 
     ##### INIT #####
 
-    def init_squares(self):
+    def init_squares(self, objects, agents):
         for x in range(len(self._squares)):
             for y in range(len(self._squares[0])):
                 self._squares[x][y].set_position(Position(x, y))
+        self.place_occupants(objects, agents)
 
     def place_occupants(self, objects, agents):
         assert (len(objects) + len(agents) < len(self._squares) * len(self._squares[0]))
 
+        self._agents = agents
+        self._objects = objects
+        
         m = len(self._squares)
         n = len(self._squares[0])
         len_obj = len(objects)

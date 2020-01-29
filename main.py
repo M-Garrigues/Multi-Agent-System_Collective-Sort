@@ -1,12 +1,12 @@
 from Board import Board
-from Position import Position, positions_within_bounds
-from temp import Agent
+from Agent import Agent
 
 
 def main():
-    agents = [Agent('A'), Agent('B'), Agent('C')]
-    objects = [Agent('4'), Agent('5'), Agent('6'), Agent('7'), Agent('8')]
-    board = Board(6, 6, agents, objects)
+    board = Board(6, 6)
+    agents = [Agent(board,'A', 1, 2, 0.3, 0.1,), Agent(board,'B', 1, 2, 0.3, 0.1), Agent(board,'C', 1, 2, 0.3, 0.1)]
+    objects = [Agent(board,'4', 1, 2, 0.3, 0.1), Agent(board,'5', 1, 2, 0.3, 0.1)]
+    board.init_squares(objects, agents)
 
     board.print()
 
