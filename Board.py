@@ -8,31 +8,34 @@ class Board:
         self._agents = agents
         self._objects = objects
 
-
-##### INIT #####
+    ##### INIT #####
 
     def init_squares(self):
 
+        for x in range(len(self._squares)):
+            for y in 
+        return
+
     def place_objects(self, objects):
+        return
 
     def place_agents(self, agents):
+        return
 
-##### PERCEPTION #####
+    ##### PERCEPTION #####
 
     def available_moves(self, agent):
         return
 
-##### MOVES #####
+    ##### MOVES #####
 
     def move(self, agent, direction):
+        return
 
-
-
-##### ACTIONS #####
+    ##### ACTIONS #####
 
     def take_object(self, agent):
         pos = self._agent_positions[agent.get_id()]
-
 
     def print(self):
         for row in self._squares:
