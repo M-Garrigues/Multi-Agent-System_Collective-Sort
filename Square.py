@@ -3,7 +3,8 @@ class Square:
     def __init__(self):
         self._has_agent = False
         self._has_object = False
-        self._occupant = None
+        self._agent = None
+        self._object = None
 
     def has_agent(self):
         return self._has_agent
@@ -11,29 +12,42 @@ class Square:
     def has_object(self):
         return self._has_object
 
-    def get_occupant(self):
-        return self._occupant
+    def get_object(self):
+        return self._object
 
-    def set_occupant(self, occupant):
-        assert (not self._has_object and not self._has_agent)
+    def get_agent(self):
+        return self._agent
 
-        self._occupant = occupant
-        if type(occupant).__name__ == "Agent":
-            self._has_agent = True
-        else:
-            self._has_object = True
+    def set_object(self, object):
+        assert (not self._has_object)
+        self._object = object
+        self._has_object = True
 
-    def take_occupant(self):
-        temp_occupant = self._occupant
-        self._occupant = None
-        self._has_agent = False
+    def set_agent(self, agent):
+        assert (not self._has_agent)
+        self._agent = agent
+        self._has_agent = True
+
+    def take_object(self):
+        temp_object = self._object
+        self._object = None
         self._has_object = False
-        return temp_occupant
+        return temp_object
+
+    def take_agent(self):
+        temp_agent = self._object
+        self._agent = None
+        self._has_agent = False
+        return temp_agent
 
     def to_string(self):
+        string = ""
+
         if self._has_object:
-            print(self._occupant.label)
-        elif self._has_agent:
-            print(self._occupant.id)
-        else:
-            print("-")
+            string += self._object.label
+        if self._has_agent:
+            string += self._agent.id
+        while len(string) < 2:
+            string += "-"
+
+        print(string)
