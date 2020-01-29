@@ -1,24 +1,15 @@
 from Board import Board
 from Position import Position, positions_within_bounds
+from temp import Agent
 
 
 def main():
-    agents = []
-    objects = []
-    #board = Board(10, 10, agents, objects)
+    agents = [Agent('A'), Agent('B'), Agent('C')]
+    objects = [Agent('4'), Agent('5'), Agent('6'), Agent('7'), Agent('8')]
+    board = Board(6, 6, agents, objects)
 
-    #board.print()
+    board.print()
 
-    point = Position(1, 1)
-    point.print()
-
-    neig = point.get_neighbours(2)
-    for p in neig:
-        p.print()
-
-    valid = positions_within_bounds(neig, 4, 4)
-    for v in valid:
-        v.print()
 
     pass
 

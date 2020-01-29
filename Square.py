@@ -22,13 +22,15 @@ class Square:
         return self._occupant
 
     def set_occupant(self, occupant):
-        assert (not self._has_object and not self._has_agent)
-
-        self._occupant = occupant
         if type(occupant).__name__ == "Agent":
+            assert (not self._has_agent)
             self._has_agent = True
-        else:
+        elif type(occupant).__name__ == "Object":
+            assert (not self._has_object)
             self._has_object = True
+        else:
+            assert False  # Set occupant, while occupant has wrong class
+        self._occupant = occupant
 
     def take_occupant(self):
         temp_occupant = self._occupant
