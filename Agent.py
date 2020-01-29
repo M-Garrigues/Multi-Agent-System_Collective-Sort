@@ -24,16 +24,16 @@ class Agent:
         self._neighbours = self._env.get_neighbours(self.get_id())
 
     def move(self):
-        moves = self._env.get_possible_moves(self.get_id())
+        moves = self._env.available_moves(self.get_id())
         choice = rd.randint(0, len(moves))
-        self._env.move(self.get_id(), moves[choice], self._i)
+        self._env.move(self.get_id(), moves[choice])
 
     def get_id(self):
         return self._id
 
     def chose_action(self):
         if self._object is None:
-            if self._neighbours.has_object() is not []:
+            if [obj.has_object() for obj in self._neighbours].count(True) == 0:
                 pa, pb = self.proba_neigh()
                 p = rd.uniform(0, 1)
                 if pa < pb:

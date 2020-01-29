@@ -10,7 +10,11 @@ def main():
 
     board.print()
 
+    agents[0].move()
+    agents[0].percepts()
+    agents[0].chose_action()
 
+    board.print()
     pass
 
 
