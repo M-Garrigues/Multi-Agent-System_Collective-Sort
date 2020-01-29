@@ -29,3 +29,11 @@ class Square:
         self._has_agent = False
         self._has_object = False
         return temp_occupant
+
+    def to_string(self):
+        if self._has_object:
+            print(self._occupant.label)
+        elif self._has_agent:
+            print(self._occupant.id)
+        else:
+            print("-")
