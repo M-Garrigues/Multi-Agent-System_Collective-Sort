@@ -1,20 +1,30 @@
 from Board import Board
 from Agent import Agent
+from Objects import Objects
+import random as rd
 
 
 def main():
-    board = Board(6, 6)
-    agents = [Agent(board,'A', 1, 2, 0.3, 0.1,), Agent(board,'B', 1, 2, 0.3, 0.1), Agent(board,'C', 1, 2, 0.3, 0.1)]
-    objects = [Agent(board,'4', 1, 2, 0.3, 0.1), Agent(board,'5', 1, 2, 0.3, 0.1)]
-    board.init_squares(objects, agents)
+    env = Board(10, 10)
+    nb_agents = 10
+    nb_objects = 20
+    k_take = 0.3
+    k_put = 0.3
+    step = 1
+    mem_size = 2
+    agents = [Agent(env, str(i), mem_size, step, k_take, k_put) for i in range(nb_agents)]
+    objects = [Objects((['A', 'B'])[i % 2]) for i in range(nb_objects)]
+    env.init_squares(objects, agents)
 
-    board.print()
-
-    agents[0].move()
-    agents[0].percepts()
-    agents[0].chose_action()
-
-    board.print()
+    env.print()
+    for i in range(100000):
+        agent = rd.choice(agents)
+        agent.move()
+        agent.percepts()
+        agent.chose_action()
+        #agent.print()
+    print("==============")
+    env.print()
     pass
 
 

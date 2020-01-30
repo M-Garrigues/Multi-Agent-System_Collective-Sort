@@ -50,11 +50,27 @@ class Board:
 
         squares = []
         for position in visibles:
-            squares.append(self._squares[pos.x][pos.y])
+            squares.append(self._squares[position.x][position.y])
         return squares
 
     def available_moves(self, agent):
-        return
+        step = agent._i
+        pos = self._agents_positions[agent.get_id()]
+        directions = []
+        if len(positions_within_bounds([Position(pos.x + step, pos.y)], self._m, self._n)) > 0 \
+                and self._squares[pos.x + step][pos.y].is_empty():
+            directions.append('S')
+        if len(positions_within_bounds([Position(pos.x - step, pos.y)], self._m, self._n)) > 0 and \
+               self._squares[pos.x - step][pos.y].is_empty():
+            directions.append('N')
+        if len(positions_within_bounds([Position(pos.x, pos.y - step)], self._m, self._n)) > 0 and\
+                self._squares[pos.x][pos.y - step].is_empty():
+            directions.append('O')
+        if len(positions_within_bounds([Position(pos.x, pos.y + step)], self._m, self._n)) > 0 and \
+                self._squares[pos.x][pos.y + step].is_empty():
+            directions.append('E')
+
+        return directions
 
     ##### MOVES #####
 
@@ -70,15 +86,18 @@ class Board:
             newpos = agent_pos + Position(0, step)
         else:
             newpos = agent_pos - Position(0, step)
-
+        self._squares[self._agents_positions[agent.get_id()].x][self._agents_positions[agent.get_id()].y].take_occupant()
         self._agents_positions[agent.get_id()] = newpos
-
+        self._squares[newpos.x][newpos.y].set_occupant(agent)
         return newpos
 
     ##### ACTIONS #####
 
-    def take_object(self, agent):
-        pos = self._agents_positions[agent.get_id()]
+    def take_object(self, square):
+        square.take_occupant()
+
+    def put_object(self, agent, square):
+        square.set_occupant(agent._object)
 
     def print(self):
         for row in self._squares:
