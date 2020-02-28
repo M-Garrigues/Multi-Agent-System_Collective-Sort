@@ -40,9 +40,7 @@ class Agent:
             if [obj.has_object() for obj in self._neighbours].count(True) != 0:
                 pa, pb = self.proba_mem(0.2)
                 p = rd.uniform(0, 1)
-                print(self._id)
-                print(pa, pb)
-                if pa < pb and "B" in [obj.get_occupant().get_label() for obj in self._neighbours if obj.has_object()]:
+                if (pa < pb and "B" in [obj.get_occupant().get_label() for obj in self._neighbours if obj.has_object()]) or "A" not in [obj.get_occupant().get_label() for obj in self._neighbours if obj.has_object()]:
                     square = next(
                         obj for obj in self._neighbours if obj.has_object() and obj.get_occupant().get_label() == 'B')
                     self.add_memory('B')
