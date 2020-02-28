@@ -38,16 +38,18 @@ class Agent:
     def chose_action(self):
         if self._object is None:
             if [obj.has_object() for obj in self._neighbours].count(True) != 0:
-                pa, pb = self.proba_neigh()
+                pa, pb = self.proba_mem(0.2)
                 p = rd.uniform(0, 1)
-                if pa < pb != 1 or (pa == 1 and pb != 1):
+                print(self._id)
+                print(pa, pb)
+                if pa < pb and "B" in [obj.get_occupant().get_label() for obj in self._neighbours if obj.has_object()]:
                     square = next(
                         obj for obj in self._neighbours if obj.has_object() and obj.get_occupant().get_label() == 'B')
                     self.add_memory('B')
                     if pb < p:
                         self._object = square.get_occupant()
                         self._env.take_object(square)
-                else:
+                elif "A" in [obj.get_occupant().get_label() for obj in self._neighbours if obj.has_object()]:
                     square = next(
                         obj for obj in self._neighbours if obj.has_object() and obj.get_occupant().get_label() == 'A')
                     self.add_memory('A')
@@ -98,6 +100,29 @@ class Agent:
             return (self._k_take / (self._k_take + fa)) ** 2, (self._k_take / (self._k_take + fb)) ** 2
         else:
             return (fa / (self._k_put + fa)) ** 2, (fb / (self._k_put + fb)) ** 2
+
+    def proba_mem(self, e):
+
+        fa = (self._mem.count("A") + e * self._mem.count("B"))/len(self._mem)
+        fb = (self._mem.count("B") + e * self._mem.count("A"))/len(self._mem)
+        temps = [obj for obj in self._neighbours if obj.has_object()]
+        neigh = []
+        for obj in temps:
+            neigh.append(obj.get_occupant().get_label())
+        if len(neigh) != 0:
+            counts = Counter(neigh)
+            if 'A' not in counts:
+                fa = 0
+            if 'B' not in counts:
+                fb = 0
+        else:
+            fa = 0
+            fb = 0
+        if self._object is None:
+            return (self._k_take / (self._k_take + fa)) ** 2, (self._k_take / (self._k_take + fb)) ** 2
+        else:
+            return (fa / (self._k_put + fa)) ** 2, (fb / (self._k_put + fb)) ** 2
+
 
     def print(self):
         print("Agent : ", self._id)

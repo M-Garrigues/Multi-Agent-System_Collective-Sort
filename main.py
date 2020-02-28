@@ -11,7 +11,7 @@ def main():
     k_take = 0.3
     k_put = 0.3
     step = 1
-    mem_size = 2
+    mem_size = 10
     agents = [Agent(env, str(i), mem_size, step, k_take, k_put) for i in range(nb_agents)]
     objects = [Objects((['A', 'B'])[i % 2]) for i in range(nb_objects)]
     env.init_squares(objects, agents)
