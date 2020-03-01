@@ -44,8 +44,10 @@ class Square:
 
     def to_string(self):
         if self._has_object:
-            return self._occupant.get_label()
+            if self._occupant.get_label() == "A":
+                return "O"
+            return "X"
         elif self._has_agent:
-            return self._occupant.get_id()
+            return "*"
         else:
-            return '-'
+            return ' '

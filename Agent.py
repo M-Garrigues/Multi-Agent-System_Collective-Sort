@@ -83,11 +83,11 @@ class Agent:
         if len(neigh) != 0:
             counts = Counter(neigh)
             if 'A' in counts:
-                fa = counts['A'] / len(self._neighbours)
+                fa = counts['A'] / 8
             else:
                 fa = 0
             if 'B' in counts:
-                fb = counts['B'] / len(self._neighbours)
+                fb = counts['B'] / 8
             else:
                 fb = 0
         else:
@@ -95,9 +95,9 @@ class Agent:
             fb = 0
 
         if self._object is None:
-            return (self._k_take / (self._k_take + fa)) ** 2, (self._k_take / (self._k_take + fb)) ** 2
+            return (fa / (self._k_take + fa)) ** 2, (fa / (self._k_take + fb)) ** 2
         else:
-            return (fa / (self._k_put + fa)) ** 2, (fb / (self._k_put + fb)) ** 2
+            return (self._k_put / (self._k_put + fa)) ** 2, (self._k_put / (self._k_put + fb)) ** 2
 
     def proba_mem(self, e):
 
@@ -117,9 +117,9 @@ class Agent:
             fa = 0
             fb = 0
         if self._object is None:
-            return (self._k_take / (self._k_take + fa)) ** 2, (self._k_take / (self._k_take + fb)) ** 2
+            return (fa / (self._k_take + fa)) ** 2, (fb / (self._k_take + fb)) ** 2
         else:
-            return (fa / (self._k_put + fa)) ** 2, (fb / (self._k_put + fb)) ** 2
+            return (self._k_put / (self._k_put + fa)) ** 2, (self._k_put / (self._k_put + fb)) ** 2
 
 
     def print(self):

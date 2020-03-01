@@ -1,3 +1,7 @@
+import random as rd
+from array import array
+
+
 def positions_within_bounds(positions, x, y):
     ret = []
     for pos in positions:
@@ -27,7 +31,7 @@ class Position:
             else:
                 neighbours.append(Position(self.x + x, self.y + (i - abs(x))))
                 neighbours.append(Position(self.x + x, self.y - (i - abs(x))))
-
+        rd.shuffle(neighbours)
         return neighbours
 
     def print(self):
