@@ -83,11 +83,11 @@ class Agent:
         if len(neigh) != 0:
             counts = Counter(neigh)
             if 'A' in counts:
-                fa = counts['A'] / 8
+                fa = counts['A'] / (1 + self._i * 2) ** 2 - 1
             else:
                 fa = 0
             if 'B' in counts:
-                fb = counts['B'] / 8
+                fb = counts['B'] / (1 + self._i * 2) ** 2 - 1
             else:
                 fb = 0
         else:
